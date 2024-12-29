@@ -14,7 +14,7 @@ variables:
   webAppName: 'cvtpythonwebapp'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  pool: default
 
   # Environment name
   environmentName: 'cvtpythonwebapp'
@@ -22,14 +22,14 @@ variables:
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
 
-  pythonVersion: '3.10'
+  pythonVersion: '3.11'
 
 stages:
 - stage: Build
   displayName: Build stage
   jobs:
   - job: BuildJob
-    pool: Default
+    pool: default
     steps:
     - task: UsePythonVersion@0
       inputs:
@@ -64,7 +64,7 @@ stages:
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
-    pool: Default 
+    pool: default 
     environment: $(environmentName)
     strategy:
       runOnce:
